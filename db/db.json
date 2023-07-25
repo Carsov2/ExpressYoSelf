@@ -1,6 +1,7 @@
 [
     {
-        "title":"Test Title",
-        "text":"Test text"
+        "id" : "",
+        "title":"Authenticate Heroku",
+        "text":"Download an app for authentication"
     }
 ]
