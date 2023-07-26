@@ -24,8 +24,12 @@ app.get('/notes', (req, res) => {
 app.get('/api/notes', async (req, res) => {
     try {
         const rawNotes = await readFromFile('./db/db.json');
-        const data = JSON.parse(rawNotes);
-        res.json(data);
+        if (rawNotes) {
+            const data = JSON.parse(rawNotes);
+            res.json(data);
+        } else {
+            res.json([]); // Return an empty array if the file is empty or doesn't exist yet
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to retrieve notes' });

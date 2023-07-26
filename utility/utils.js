@@ -20,4 +20,14 @@ const readAndAppend = async (content, file) => {
     }
 };
 
-module.exports = { writeToFile, readAndAppend };
+const readFromFile = async (file) => {
+    try {
+        const data = await fs.readFile(file, 'utf8');
+        return data;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+};
+
+module.exports = { writeToFile, readAndAppend, readFromFile };
