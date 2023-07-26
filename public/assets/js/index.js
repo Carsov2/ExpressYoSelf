@@ -1,7 +1,7 @@
 // Utility functions to show and hide elements
-const show = (elem) => {
+function show(elem) {
   elem.style.display = 'inline';
-};
+}
 
 const hide = (elem) => {
   elem.style.display = 'none';
@@ -75,10 +75,14 @@ const handleNoteSave = () => {
     title: noteTitle.value,
     text: noteText.value,
   };
-  saveNote(newNote).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+  saveNote(newNote)
+    .then(() => {
+      getAndRenderNotes();
+      renderActiveNote();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 // Handle deleting a note
@@ -92,10 +96,14 @@ const handleNoteDelete = (e) => {
     activeNote = {};
   }
 
-  deleteNote(noteId).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+  deleteNote(noteId)
+    .then(() => {
+      getAndRenderNotes();
+      renderActiveNote();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 // Handle viewing a note
@@ -121,9 +129,7 @@ const handleRenderSaveBtn = () => {
 };
 
 // Render the list of note titles
-const renderNoteList = async (notes) => {
-  const jsonNotes = await notes;
-
+const renderNoteList = (jsonNotes) => {
   noteList.forEach((el) => (el.innerHTML = ''));
 
   let noteListItems = [];
@@ -172,7 +178,11 @@ const renderNoteList = async (notes) => {
 
 // Get notes from the API and render them to the sidebar
 const getAndRenderNotes = () => {
-  getNotes().then(renderNoteList);
+  getNotes()
+    .then(renderNoteList)
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 // Event listeners
